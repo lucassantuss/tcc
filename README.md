@@ -50,6 +50,19 @@
   </tr>
 </table>
 
+<h2 id="colab">👨‍💻 Orientador</h2>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/gabrielbaptista">
+        <img src="https://github.com/gabrielbaptista.png" width="100px;" alt="Gabriel Profile Picture"/><br>
+          <b>Gabriel Lara</b>
+      </a>
+    </td>
+  </tr>
+</table>
+
 <h2 id="license">🧾 Licença</h2>
 
 Este software está disponível sob as seguintes licenças:
