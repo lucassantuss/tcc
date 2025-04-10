@@ -30,8 +30,8 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/0-Programmer-0">
-        <img src="https://github.com/0-Programmer-0.png" width="100px;" alt="João Profile Picture"/><br>
+      <a href="https://github.com/joaomoraesdev">
+        <img src="https://github.com/joaomoraesdev.png" width="100px;" alt="João Profile Picture"/><br>
           <b>João Moraes</b>
       </a>
     </td>
