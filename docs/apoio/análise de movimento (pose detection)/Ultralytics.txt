@@ -1,0 +1,13 @@
+Ultralytics
+
+Vídeo
+https://www.youtube.com/watch?v=Y28xXQmju64
+
+Site
+https://www.ultralytics.com/pt
+
+Canal no YouTube
+https://www.youtube.com/@Ultralytics
+
+Estimativa de Pose - Doc
+https://docs.ultralytics.com/pt/tasks/pose/

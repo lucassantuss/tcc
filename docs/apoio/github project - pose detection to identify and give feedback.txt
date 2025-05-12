@@ -1,0 +1,7 @@
+** Github Project - Pose Detection to Identify and Give Feedback **
+
+Link publicado:
+https://saketshirsath.github.io/cv.github.io/
+
+Repositório no Github:
+https://github.com/saketshirsath/cv.github.io
