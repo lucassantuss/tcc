@@ -19,6 +19,7 @@ function mediapipe() {
                 width: { ideal: window.innerWidth },
                 height: { ideal: window.innerHeight }
             }
+
         };
 
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -26,8 +27,9 @@ function mediapipe() {
 
         await videoElement.play();
 
-        canvasElement.width = videoElement.videoWidth;
-        canvasElement.height = videoElement.videoHeight;
+        canvasElement.width = window.innerWidth;
+        canvasElement.height = window.innerHeight;
+
     }
 
     function calcularAngulo(a, b, c) {
@@ -72,10 +74,18 @@ function mediapipe() {
         canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
         if (results.poseLandmarks) {
-            drawConnectors(canvasCtx, results.poseLandmarks, window.Pose.POSE_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
-            drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 2 });
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#0051ff', lineWidth: 4 });
+            drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 4 });
 
             analisarExercicio(results.poseLandmarks);
+
+            const elbow = results.poseLandmarks[13]; // Cotovelo esquerdo
+            const x = (elbow.x * canvasElement.width) + 10;
+            const y = (elbow.y * canvasElement.height) - 10;
+
+            canvasCtx.font = "40px Arial";
+            canvasCtx.fillStyle = "#00FF00";
+            canvasCtx.fillText(`${lastAngle.toFixed(2)}°`, x, y);
         }
 
         canvasCtx.restore();
@@ -106,12 +116,12 @@ function mediapipe() {
 
         detectFrame();
     }
-}
-return {
-    main: main,
-    onResults: onResults,
-    analisarExercicio: analisarExercicio,
-    valorPoseLandmark: valorPoseLandmark,
-    calcularAngulo: calcularAngulo,
-    setupCamera: setupCamera
+    return {
+        main: main,
+        onResults: onResults,
+        analisarExercicio: analisarExercicio,
+        valorPoseLandmark: valorPoseLandmark,
+        calcularAngulo: calcularAngulo,
+        setupCamera: setupCamera
+    }
 }

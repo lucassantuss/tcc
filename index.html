@@ -15,10 +15,13 @@
             justify-content: center;
             align-items: center;
             background: #222;
-            height: 100vh;
-            margin: 0;
             color: #eee;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
         }
 
         #videoCanvas {
@@ -38,6 +41,12 @@
             width: fit-content;
             min-width: 250px;
         }
+
+        #videoCanvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
     </style>
 </head>
 
@@ -47,8 +56,10 @@
         <div>Estágio: <span id="stage">---</span></div>
         <div>Ângulo: <span id="angle">0.00</span></div>
     </div>
+    <br>
     <canvas id="videoCanvas"></canvas>
-    <button id="btnIniciarAvaliacao" onclick=mediapipe().main();>Iniciar Avaliação</button>
+    <br>
+    <button id="btnIniciarAvaliacao" onclick="mediapipe().main();">Iniciar Avaliação</button>
 </body>
 
 </html>
