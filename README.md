@@ -6,7 +6,6 @@
  <a href="#license">Licença</a>
 </p>
 <p align="center">
- <a href="https://cefsaedu.sharepoint.com/sites/TCCFESA/Documentos%20Compartilhados/Forms/AllItems.aspx">Sharepoint</a> •
  <a href="docs/apoio">Apoio</a> • 
  <a href="docs/documentação">Documentação</a> •
  <a href="docs/links">Links</a>
@@ -18,7 +17,7 @@
 
 <h2 id="tech">💻 Tecnologias Usadas</h2>
 
-[![My Skills](https://skillicons.dev/icons?i=vscode,py,flutter,dart,figma)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=vscode,react,html,js,css,py,tensorflow,figma)](https://skillicons.dev)
 
 <h2 id="colab">🤝 Integrantes do Grupo</h2>
 
