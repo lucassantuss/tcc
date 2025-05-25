@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+}
+
+#info {
+    background-color: #1e1e1e;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    font-size: 1.2rem;
+}
+
+#info div {
+    margin: 0.5rem 0;
+}
+
+#videoCanvas {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: #00994d;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 153, 77, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+button:hover {
+    background-color: #007a3d;
+    transform: scale(1.02);
+}
+
+/* Estilos para visualização mobile */
+@media (max-width: 768px) {
+    #info {
+        font-size: 1.6rem;
+        padding: 1.2rem;
+    }
+
+    button {
+        width: 100%;
+        max-width: 300px;
+        font-size: 1.3rem;
+        padding: 1rem;
+    }
+
+    #videoCanvas {
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+}
