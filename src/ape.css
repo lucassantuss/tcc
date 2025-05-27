@@ -26,6 +26,125 @@ body, html {
     position: relative;
 }
 
+#grupoInferior {
+    background-color: #1e1e1e;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    font-size: 1.2rem;
+}
+
+#comboExercicio {
+    margin: 0 2% 0 0;
+    background-color: #2c2c2c; /* um tom acima do fundo do grupo */
+    color: #ffffff; /* verde para combinar com a sombra */
+    border: 1px solid #00ff00;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    /* box-shadow: 0 0 5px rgba(0, 255, 0, 0.3); */
+    transition: all 0.3s ease;
+    appearance: none; /* remove estilo padrão do select */
+    cursor: pointer;
+}
+
+#comboExercicio:hover {
+    /* box-shadow: 0 0 8px rgba(0, 255, 0, 0.5); */
+    background-color: #2c2c2c;
+}
+
+#comboExercicio:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+}
+
+#grupoInferior {
+    background-color: #1e1e1e;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    font-size: 1.2rem;
+
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Responsivo */
+}
+
+/* Combobox estilizado */
+#comboExercicio {
+    background-color: #2c2c2c;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    width: 200px;
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%2300ff00' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+#comboExercicio:hover {
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+#comboExercicio:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+}
+
+/* Botão harmonizado */
+button {
+    background-color: #00ff00;
+    color: #1e1e1e;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+button:hover {
+    background-color: #1e1e1e;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+}
+
+/* button {
+    background-color: #00994d;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 153, 77, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+button:hover {
+    background-color: #007a3d;
+    transform: scale(1.02);
+} */
+
 #info {
     background-color: #1e1e1e;
     padding: 1rem 1.5rem;
@@ -49,24 +168,6 @@ body, html {
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
     margin-bottom: 1rem;
-}
-
-button {
-    background-color: #00994d;
-    color: #fff;
-    font-size: 1rem;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 5px 10px rgba(0, 153, 77, 0.2);
-    transition: background 0.3s ease, transform 0.2s ease;
-    z-index: 10;
-}
-
-button:hover {
-    background-color: #007a3d;
-    transform: scale(1.02);
 }
 
 /* Estilos para visualização mobile */

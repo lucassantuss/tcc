@@ -5,11 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>APE - Assistente Pessoal de Exercícios</title>
-    <link rel="stylesheet" href="ape.css">
+    <link rel="stylesheet" href="Ape.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-    <script defer src="ape.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script defer src="Ape.js"></script>
 </head>
 
 <body>
@@ -20,7 +22,15 @@
             <div>Ângulo: <span id="angle">0.00</span></div>
         </div>
         <canvas id="videoCanvas"></canvas>
-        <button id="btnIniciarAvaliacao" onclick="mediapipe().main();">Iniciar Avaliação</button>
+        <div id="grupoInferior">
+            <!-- inserir via BD os exercicios existentes -->
+            <select id="comboExercicio">
+                <option value="roscaDiretaEsquerdo">Rosca Direta</option>
+                <option value="meioAgachamento">Meio Agachamento</option>
+            </select>
+            <button id="btnIniciarAvaliacao" onclick="mediapipe().main();">Iniciar Avaliação</button>
+        </div>
     </div>
 </body>
+
 </html>

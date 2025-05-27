@@ -10,6 +10,28 @@ function mediapipe() {
     let stage = '---';
     let lastAngle = 0;
 
+    async function main() {
+        await setupCamera();
+
+        const pose = new window.Pose({
+            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
+        });
+        pose.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        pose.onResults(onResults);
+
+        async function detectFrame() {
+            await pose.send({ image: videoElement });
+            requestAnimationFrame(detectFrame);
+        }
+
+        detectFrame();
+    }
+
     // Ajustar canvas para o tamanho máximo da câmera disponível
     async function setupCamera() {
         const constraints = {
@@ -58,10 +80,10 @@ function mediapipe() {
         const angulo = calcularAngulo(leftShoulder, leftElbow, leftWrist);
         lastAngle = angulo;
 
-        if (angulo > 155) {
+        if (angulo > 145) {
             stage = 'baixo';
         }
-        if (angulo < 39 && stage === 'baixo') {
+        if (angulo < 30 && stage === 'baixo') {
             stage = 'cima';
             counter++;
         }
@@ -74,6 +96,7 @@ function mediapipe() {
         canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
         if (results.poseLandmarks) {
+            // Traçar pontos e linhas
             drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#0051ff', lineWidth: 4 });
             drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 4 });
 
@@ -95,27 +118,6 @@ function mediapipe() {
         document.getElementById('angle').textContent = lastAngle.toFixed(2);
     }
 
-    async function main() {
-        await setupCamera();
-
-        const pose = new window.Pose({
-            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
-        });
-        pose.setOptions({
-            modelComplexity: 1,
-            smoothLandmarks: true,
-            minDetectionConfidence: 0.5,
-            minTrackingConfidence: 0.5
-        });
-        pose.onResults(onResults);
-
-        async function detectFrame() {
-            await pose.send({ image: videoElement });
-            requestAnimationFrame(detectFrame);
-        }
-
-        detectFrame();
-    }
     return {
         main: main,
         onResults: onResults,
