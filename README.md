@@ -15,9 +15,13 @@
     <b>Projeto de TCC de Engenharia de Computação na Faculdade Engenheiro Salvador Arena</b>
 </p>
 
+<p align="center">
+     <a href="https://lucassantuss.github.io/tcc/"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Mobile%20Phone%20with%20Arrow.png" alt="Mobile Phone with Arrow" width="20" height="20" /> Visite o Site</a>
+</p>
+
 <h2 id="tech">💻 Tecnologias Usadas</h2>
 
-[![My Skills](https://skillicons.dev/icons?i=vscode,react,html,js,css,py,tensorflow,figma)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=react,cs,dotnet,html,js,css,azure,vercel,visualstudio,vscode,figma)](https://skillicons.dev)
 
 <h2 id="colab">🤝 Integrantes do Grupo</h2>
 
