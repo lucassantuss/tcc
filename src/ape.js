@@ -5,10 +5,38 @@ function mediapipe() {
 
     const canvasElement = document.getElementById('videoCanvas');
     const canvasCtx = canvasElement.getContext('2d');
+    let comboExercicio = $('#comboExercicio').val();
 
     let counter = 0;
     let stage = '---';
     let lastAngle = 0;
+    let anguloEsquerdo = 0;
+    let anguloDireito = 0;
+
+    var landmark = {
+        // ROSCA DIRETA
+        LEFT_SHOULDER: 11,
+        LEFT_ELBOW: 13,
+        LEFT_WRIST: 15,
+
+        // MEIO AGACHAMENTO
+        LEFT_HIP: 24,
+        LEFT_KNEE: 26,
+        LEFT_ANKLE: 28,
+        RIGHT_HIP: 23,
+        RIGHT_KNEE: 25,
+        RIGHT_ANKLE: 27
+    };
+
+    $(document).ready(function () {
+        $('#comboExercicio').change(function () {
+            comboExercicio = $(this).val();
+            console.log(comboExercicio);
+            counter = 0;
+            stage = '---';
+            lastAngle = 0;
+        });
+    });
 
     async function main() {
         await setupCamera();
@@ -54,6 +82,26 @@ function mediapipe() {
 
     }
 
+    function onResults(results) {
+        canvasCtx.save();
+        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+        if (results.poseLandmarks) {
+            // Traçar pontos e linhas
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#0051ff', lineWidth: 4 });
+            drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 4 });
+
+            analisarExercicio(results.poseLandmarks);
+        }
+
+        canvasCtx.restore();
+
+        document.getElementById('counter').textContent = counter;
+        document.getElementById('stage').textContent = stage;
+        document.getElementById('angle').textContent = lastAngle.toFixed(2);
+    }
+
     function calcularAngulo(a, b, c) {
         const radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
         let angulo = Math.abs(radians * 180.0 / Math.PI);
@@ -68,54 +116,71 @@ function mediapipe() {
 
     function analisarExercicio(landmarks) {
         if (!landmarks) return;
+        switch (comboExercicio) {
+            case 'roscaDireta':
+                var leftShoulder = valorPoseLandmark(landmarks, landmark.LEFT_SHOULDER);
+                var leftElbow = valorPoseLandmark(landmarks, landmark.LEFT_ELBOW);
+                var leftWrist = valorPoseLandmark(landmarks, landmark.LEFT_WRIST);
 
-        const LEFT_SHOULDER = 11;
-        const LEFT_ELBOW = 13;
-        const LEFT_WRIST = 15;
+                anguloEsquerdo = calcularAngulo(leftShoulder, leftElbow, leftWrist);
 
-        const leftShoulder = valorPoseLandmark(landmarks, LEFT_SHOULDER);
-        const leftElbow = valorPoseLandmark(landmarks, LEFT_ELBOW);
-        const leftWrist = valorPoseLandmark(landmarks, LEFT_WRIST);
+                if (anguloEsquerdo > 145) {
+                    stage = 'baixo';
+                }
+                if (anguloEsquerdo < 30 && stage === 'baixo') {
+                    stage = 'cima';
+                    counter++;
+                }
 
-        const angulo = calcularAngulo(leftShoulder, leftElbow, leftWrist);
-        lastAngle = angulo;
+                var elbow = landmarks[landmark.LEFT_ELBOW]; // Cotovelo esquerdo
+                var x = (elbow.x * canvasElement.width) + 10;
+                var y = (elbow.y * canvasElement.height) - 10;
+                canvasCtx.font = "40px Arial";
+                canvasCtx.fillStyle = "#00FF00";
+                canvasCtx.fillText(`${anguloEsquerdo.toFixed(2)}°`, x, y);
+                document.getElementById('angle').textContent = anguloEsquerdo.toFixed(2);
+                break;
+            case 'meioAgachamento':
+                var leftHip = valorPoseLandmark(landmarks, landmark.LEFT_HIP);
+                var leftKnee = valorPoseLandmark(landmarks, landmark.LEFT_KNEE);
+                var leftAnkle = valorPoseLandmark(landmarks, landmark.LEFT_ANKLE);
 
-        if (angulo > 145) {
-            stage = 'baixo';
+                var rightHip = valorPoseLandmark(landmarks, landmark.RIGHT_HIP);
+                var rightKnee = valorPoseLandmark(landmarks, landmark.RIGHT_KNEE);
+                var rightAnkle = valorPoseLandmark(landmarks, landmark.RIGHT_ANKLE);
+
+                anguloEsquerdo = calcularAngulo(leftHip, leftKnee, leftAnkle);
+                anguloDireito = calcularAngulo(rightHip, rightKnee, rightAnkle);
+
+                if (anguloEsquerdo >= 170 && anguloDireito >= 170) {
+                    stage = 'baixo';
+                }
+                if ((anguloEsquerdo <= 100 && anguloDireito <= 100) && stage === 'baixo') {
+                    stage = 'cima';
+                    counter++;
+                }
+
+                canvasCtx.font = "40px Arial";
+                canvasCtx.fillStyle = "#00FF00";
+
+                // Joelho Esquerdo
+                var lKnee = landmarks[landmark.LEFT_KNEE];
+                var x = (lKnee.x * canvasElement.width) + 10;
+                var y = (lKnee.y * canvasElement.height) - 10;
+                canvasCtx.fillText(`${anguloEsquerdo.toFixed(2)}°`, x, y);
+                
+                // Joelho Direito
+                var rKnee = landmarks[landmark.RIGHT_KNEE];
+                var x = (rKnee.x * canvasElement.width) + 10;
+                var y = (rKnee.y * canvasElement.height) - 10;
+                canvasCtx.fillText(`${anguloDireito.toFixed(2)}°`, x, y);
+
+                document.getElementById('angle').textContent = anguloEsquerdo.toFixed(2);
+                break;
+            default:
+                return;
+                break;
         }
-        if (angulo < 30 && stage === 'baixo') {
-            stage = 'cima';
-            counter++;
-        }
-    }
-
-
-    function onResults(results) {
-        canvasCtx.save();
-        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-        canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
-
-        if (results.poseLandmarks) {
-            // Traçar pontos e linhas
-            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#0051ff', lineWidth: 4 });
-            drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 4 });
-
-            analisarExercicio(results.poseLandmarks);
-
-            const elbow = results.poseLandmarks[13]; // Cotovelo esquerdo
-            const x = (elbow.x * canvasElement.width) + 10;
-            const y = (elbow.y * canvasElement.height) - 10;
-
-            canvasCtx.font = "40px Arial";
-            canvasCtx.fillStyle = "#00FF00";
-            canvasCtx.fillText(`${lastAngle.toFixed(2)}°`, x, y);
-        }
-
-        canvasCtx.restore();
-
-        document.getElementById('counter').textContent = counter;
-        document.getElementById('stage').textContent = stage;
-        document.getElementById('angle').textContent = lastAngle.toFixed(2);
     }
 
     return {
