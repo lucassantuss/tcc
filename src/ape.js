@@ -138,7 +138,7 @@ function mediapipe() {
                 canvasCtx.font = "40px Arial";
                 canvasCtx.fillStyle = "#00FF00";
                 canvasCtx.fillText(`${anguloEsquerdo.toFixed(2)}°`, x, y);
-                document.getElementById('angle').textContent = anguloEsquerdo.toFixed(2);
+                lastAngle = anguloEsquerdo;
                 break;
             case 'meioAgachamento':
                 var leftHip = valorPoseLandmark(landmarks, landmark.LEFT_HIP);
@@ -175,7 +175,7 @@ function mediapipe() {
                 var y = (rKnee.y * canvasElement.height) - 10;
                 canvasCtx.fillText(`${anguloDireito.toFixed(2)}°`, x, y);
 
-                document.getElementById('angle').textContent = anguloEsquerdo.toFixed(2);
+                lastAngle = anguloEsquerdo;
                 break;
             default:
                 return;
